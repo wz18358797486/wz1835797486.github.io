@@ -1,8 +1,17 @@
 <html>
+  <script src="jquery-3.4.1.js"></script>
   <body>
-     <h1>苏圣扬</h1> <br>
+     <h1><span id="myname"></span></h1> <br>
      <img src="huoyin.jpg"><br>
-     <p>我的学号<span id="studentnumber">18002090131</span></p>
+     <p>我的学号<span id="mynumber"></span></p>
      <img src="matrix.png">
+     <script>
+       $(function(){
+         $.get("./data.json",function(result){
+           $("#myname").text(result.myname);
+           $("#mynumber").text(result.mynumber);
+         })
+       })
+     </script>
   </body>
 </html>
