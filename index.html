@@ -11,6 +11,16 @@
            $("#myname").text(result.myname);
            $("#mynumber").text(result.mynumber);
          })
+         $.ajax({
+           type:"POST",
+           xhrFields:{
+             withCreadentials:true
+           },
+           url:"http://127.0.0.1:8585/login",
+           contentType:"application/json",
+           data:{"name":"john"},
+           callback,
+         })
        })
      </script>
   </body>

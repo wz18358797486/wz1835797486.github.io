@@ -14,19 +14,24 @@
     <script>
         $(function(){
             $("#dl").click(function(){
-            var data={number:$("#zh").val(),password:$("#mm").val()}
-        
-         $.ajax({
-             type:"POST",
-             url:"http://127.0.0.1:8585/login",
-             contentType:"application/json",
-             data:JSON.stringify(data)
-             ,success:function(result){
-                 if(result.result=='success'){
-                     location.href='index.html'
-                 }
-             }
-         })
+
+            $.ajax({
+                type:"POST",
+           xhrFields:{
+               withCredentials:true
+           },
+           url:"http://127.0.0.1:8585/login",
+           contentType:"application/json",
+           data:JSON.stringify({number:$("number").val(),
+           password:$("#password").val()
+           }),
+           success:function(){
+               if(result.result=="success"){
+                   location.href='index.html';
+               }
+           }
+            })
+           
             })
         })
 
