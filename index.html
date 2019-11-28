@@ -3,23 +3,29 @@
   <body>
      <h1>我叫<span id="myname"></span></h1> <br>
      <img src="huoyin.jpg"><br>
+     <a id="btn" href="login.html">去登陆</a>
      <p>我的学号<span id="mynumber"></span></p>
      <img src="matrix.png">
+     
      <script>
        $(function(){
-         $.post("http://10.30.201.81:8585/data.json",function(result){
-           $("#myname").text(result.myname);
-           $("#mynumber").text(result.mynumber);
-         })
+        //  $.post("http://10.30.201.81:8585/data.json",function(result){
+        //    $("#myname").text(result.myname);
+        //    $("#mynumber").text(result.mynumber);
+        //  })
          $.ajax({
            type:"POST",
            xhrFields:{
              withCreadentials:true
            },
-           url:"http://127.0.0.1:8585/login",
+           url:"http://127.0.0.1:8585/userinfo",
            contentType:"application/json",
-           data:{"name":"john"},
-           callback,
+           data:"{'a':'1'}",
+           success:function(result){
+             $("#myname").text(result.myname);
+             $("mynumber").text(result.mynumber);
+           }
+           
          })
        })
      </script>

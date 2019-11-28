@@ -8,12 +8,14 @@
     <script src="jquery-3.4.1.js"></script>
 </head>
 <body>
-    账号：<input type="text" id="zh"><br>
-    密码：<input type="password" id="mm"><br>
-    <button id="dl">登陆</button>
+    账号：<input type="text" id="username"><br>
+    密码：<input type="password" id="password"><br>
+    <button id="btn">登陆</button>
     <script>
         $(function(){
-            $("#dl").click(function(){
+            $("#btn").click(function(){
+                var data = {number:$("#username").val(),
+            password:$("#password").val()};
 
             $.ajax({
                 type:"POST",
@@ -22,16 +24,13 @@
            },
            url:"http://127.0.0.1:8585/login",
            contentType:"application/json",
-           data:JSON.stringify({number:$("number").val(),
-           password:$("#password").val()
-           }),
-           success:function(){
-               if(result.result=="success"){
+           data:JSON.stringify(data),
+           success:function(result){
+               if(result.result=="success")
                    location.href='index.html';
-               }
            }
             })
-           
+
             })
         })
 
