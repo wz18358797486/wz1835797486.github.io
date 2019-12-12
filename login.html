@@ -4,36 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>用户登录</title>
     <script src="jquery-3.4.1.js"></script>
 </head>
 <body>
-    账号：<input type="text" id="username"><br>
-    密码：<input type="password" id="password"><br>
-    <button id="btn">登陆</button>
-    <script>
-        $(function(){
-            $("#btn").click(function(){
-                var data = {number:$("#username").val(),
-            password:$("#password").val()};
+        <script>
+                $(function(){
+                    $("#btn").click(function(){
+                 $.ajax({
+                   type:"POST",
+                   xhrFields:{
+                          withCredentials:true
+                      },
+                   url:"http://127.0.0.1:8585/login",
+                   contentType:"application/json",
+                   data:JSON.stringify({number:$("#number").val(),
+                                  password:$("#password").val()
+                 }),
+                    success:function(result){
+                        if(result.result=='success'){
+                            location.href='index.html';
+                        }
+                    }
+                  });
 
-            $.ajax({
-                type:"POST",
-           xhrFields:{
-               withCredentials:true
-           },
-           url:"http://127.0.0.1:8585/login",
-           contentType:"application/json",
-           data:JSON.stringify(data),
-           success:function(result){
-               if(result.result=="success")
-                   location.href='index.html';
-           }
-            })
-
-            })
-        })
-
-    </script>
+                  /*$.ajax({
+                      type:"POST",
+                      xhrFields:{
+                          withCredentials:true
+                      },
+                      url:"http://127.0.0.1:5503/userinfo",
+                      contentType:"application/json",
+                      data:JSON.stringify({number:$("#number").val(),password:$("#password").val()})
+                      ,
+                      success:function(result){
+                          if(result.result=="success"){
+                              location.href='index.html';
+                          }
+                      }
+                  })*/
+                })
+                    })
+              </script>
+    用户名:<input type="text" id="number">
+    <br>
+    密码:<input type="password" id="password">
+    <br>
+    <button id="btn">登录</button>
 </body>
 </html>
