@@ -1,80 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="jquery-3.4.1.js"></script>
-</head>
+<html>
 <body>
-  <h1>我是<span id="myname"></span></h1>  
-  <P>我的学号是<span id="mynumber"></span></p>
-  <p><a href="login.html"><button id="login" >去登录</button></a></p>
-  <p><button id="alogout" >去注销</button></p>
-  <p><input type="text" id="content"><button id="add">添加</button></p>
-  <P><ul id="ul"></ul></P>
-  <img src="matrix.png" />
-  <img src="huoyin.jpg" id="logo"/>
-  <script>
-    $(function(){
-        var callback=function callback(result){
-          if(!result || !result.myname){
-            $("#alogout").hide();
-            $("#content").hide();
-            $("#add").hide();
-          }
-          else{
-            $("#myname").text(result.myname);
-            $("#mynumber").text(result.mynumber);
-            $("#login").hide();
-          }
-        };
-        
-     $.ajax({
-       type:"POST",
-       xhrFields:{
-         withCredentials:true
-       },
-       url:"http://127.0.0.1:8585/userinfo",
-       contentType:"application/json",
-        success:callback
-      })
-      //$.get("http://127.0.0.1:5503/data.json",{number:"18002090123"} ,callback);
-    })
-    $("#btn").click(function(){
-        $.post("http://127.0.0.1:5503/data.json",callback);
-        $("#myname").text(result.myname);
-        $("#mynumber").text(result.mynumber);
-    })
+<h1>我叫<span id="myname"></span></h1>
 
-    $("#alogout").click(function(){
-      $.ajax({
-       type:"POST",
-       xhrFields:{
-         withCredentials:true
-       },
-       url:"http://127.0.0.1:8585/logout",
-        success:function(){
-          location.href="index.html"
-        }
-      })
-    })
-    $.post("http://127.0.0.1:8585/lvlilist",
-        function (result) {
-        for(var i=0;i<result.length;i++){
-          $("#ul").append("<li>"+result[i]+"</li>")
-        }
-      
-    })
-    $("#add").click(function(){
-      $.post("http://127.0.0.1:8585/addlvli",
-      {lvli:$("#content").val()},
-      function () {
-        location.href="index.html";
-        
-      })
-    })
-  </script>
-  </body>
+    <p>我的学号是<span id="mynumber"></span>
+    </p>
+    <a id="alogin" href="login.html">去登录</a>
+    <a id="alogout" href="#">去注销</a>
+
+    <input id="content" type="text">
+    <button id=btnAdd>添加</button>
+
+<ul id="ul">
+</ul>
+    <script src="jquery-3.4.1.js"></script>
+    <script>
+        $(function(){
+
+            var callback=function (result){
+                if(!result || !result.myname){
+                    $("#alogout").hide();
+                    $("#content").hide();
+                    $("#btnAdd").hide();
+                }else{
+                    $("#myname").text(result.myname);
+                    $("#mynumber").text(result.mynumber);
+                    $("#alogin").hide();
+                }
+             }
+             $.ajax({
+                type:"POST",
+                xhrFields: {
+                        withCredentials: true
+                },
+                url:"http://127.0.0.1:8585/userinfo",
+                contentType:"application/json",
+                success:callback
+             });
+     
+             $.post("http://127.0.0.1:8585/lvlilist",
+                        function(result){
+                            for(var i=0;i<result.length;i++){
+                                $("#ul").append("<li>"+ result[i].url+"</li>")
+                            }
+            })
+            
+
+
+
+
+            $("#alogout").click(function(){
+                $.ajax({
+                type:"POST",
+                xhrFields: {
+                        withCredentials: true
+                },
+                url:"http://127.0.0.1:8585/logout",
+                success:function(){
+                    location.href="index.html";
+                }
+             });
+            });
+
+   
+            $("#btnAdd").click(function(){
+                $.post("http://127.0.0.1:8585/addlvli",
+                        {lvli:$("#content").val()},
+                        function(){
+                            location.href="index.html"; 
+                        })
+            })
+
+        })
+
+
+    </script>
+</body>
 </html>
-git config --global user.email "2958703226@qq.com" git config --global user.name "Woodash"
